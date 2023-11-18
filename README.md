@@ -5,3 +5,7 @@
 ## Description
 
 This extension integrates [Monaco Editor](https://github.com/microsoft/monaco-editor) with the Emmet and Tailwind Intellisense extensions in CMS Static Block / Pages.
+
+## DEMO
+
+![demo-monacoeditor](https://github.com/empiricompany/openmage-mm_monacoeditor/assets/5071467/05398366-fe69-498c-99f3-6140571bc395)
