@@ -1,0 +1,5 @@
+app/code/local/MM/MonacoEditor     app/code/local/MM/MonacoEditor
+js/*    js/
+app/design/adminhtml/default/default/layout/mm/monacoeditor.xml    app/design/adminhtml/default/default/layout/mm/monacoeditor.xml
+app/design/adminhtml/default/default/template/mm/monacoeditor    app/design/adminhtml/default/default/template/mm/monacoeditor
+app/etc/modules/*    app/etc/modules/

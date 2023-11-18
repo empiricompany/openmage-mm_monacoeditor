@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<layout>
+   <adminhtml_cms_block_edit>
+       <update handle="mm_monacoeditor" />
+    </adminhtml_cms_block_edit>
+
+    <adminhtml_cms_page_edit>
+        <update handle="mm_monacoeditor" />
+    </adminhtml_cms_page_edit>
+
+    <!-- <adminhtml_catalog_product_edit>
+        <update handle="mm_monacoeditor" />
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_newsletter_template_new>
+        <update handle="mm_monacoeditor" />
+    </adminhtml_newsletter_template_new>
+
+    <adminhtml_newsletter_template_edit>
+        <update handle="mm_monacoeditor" />
+    </adminhtml_newsletter_template_edit>
+
+    <adminhtml_catalog_category_edit>
+        <update handle="mm_monacoeditor" />
+    </adminhtml_catalog_category_edit>
+
+    <adminhtml_system_email_template_edit>
+        <update handle="mm_monacoeditor" />
+    </adminhtml_system_email_template_edit> -->
+
+    <mm_monacoeditor>
+        <reference name="head">
+            <action method="addJs">
+                <script>monacoeditor/monaco-tailwindcss.min.js</script>
+                <type>type="module"</type>
+            </action>
+        </reference>
+        <reference name="content" after="-">
+            <block type="mm_monacoeditor/init" template="mm/monacoeditor/script.phtml"/>
+        </reference>
+    </mm_monacoeditor>
+</layout>

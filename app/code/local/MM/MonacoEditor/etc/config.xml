@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MM_MonacoEditor>
+            <version>1.0.0</version>
+        </MM_MonacoEditor>
+    </modules>
+    <global>
+        <blocks>
+            <mm_monacoeditor>
+                <class>MM_MonacoEditor_Block</class>
+            </mm_monacoeditor>
+        </blocks>
+        <helpers>
+            <mm_monacoeditor>
+                <class>MM_MonacoEditor_Helper</class>
+            </mm_monacoeditor>
+        </helpers>
+        <models>
+            <mm_monacoeditor>
+                <class>MM_MonacoEditor_Model</class>
+            </mm_monacoeditor>
+        </models>
+
+        <events>
+            
+        </events>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <mm_monacoeditor>
+                    <file>mm/monacoeditor.xml</file>
+                </mm_monacoeditor>
+            </updates>
+        </layout>
+        <events>
+            
+        </events>
+    </adminhtml>
+    <default>
+        <cms>
+            <mm_monacoeditor>
+        
+            </mm_monacoeditor>
+        </cms>
+    </default>
+</config>

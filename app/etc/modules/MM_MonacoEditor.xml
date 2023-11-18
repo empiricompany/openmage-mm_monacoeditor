@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MM_MonacoEditor>
+            <active>true</active>
+            <codePool>local</codePool>
+        </MM_MonacoEditor>
+    </modules>
+</config>
