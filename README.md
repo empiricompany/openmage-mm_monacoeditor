@@ -22,7 +22,7 @@ This extension allows you to use [Monaco](https://github.com/microsoft/monaco-ed
 
 ## Additional Features
 - Emmet a fast and efficient toolkit for HTML and CSS coding, providing shorthand abbreviations for quick code expansion. 
-- Tailwindccs Intellisense providing intelligent auto-completion, suggestions, and tooltips for Tailwind CSS classes 
+- Tailwindcss Intellisense providing intelligent auto-completion, suggestions, and tooltips for Tailwind CSS classes 
 
 ## Configuration
 Monaco Editor is enabled by default in all supported content.
