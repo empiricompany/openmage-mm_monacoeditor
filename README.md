@@ -38,11 +38,19 @@ Monaco Editor is enabled by default in all supported content.
 
 - The insert widget, insert image, and insert variable buttons not works.
 
+You have to manually type:
+ ```html
+{{widget type="catalog/product_widget_new" display_type="all_products" products_count="10" template="catalog/product/widget/new/content/new_grid.phtml"}}
+<img src="{{media url="wysiwyg/404-banner-3.jpg"}}" alt="" />
+{{config path="web/secure/base_url"}}
+ ```
+
 - There is a problem with prototypejs that inserts the Array.prototype.include method and conflicts with Monaco. It should have been resolved, although it may not be the best solution, but it works!
 
 ## DEMO
 
 ![demo-monacoeditor](https://github.com/empiricompany/openmage-mm_monacoeditor/assets/5071467/05398366-fe69-498c-99f3-6140571bc395)
+![configs](https://github.com/empiricompany/openmage-mm_monacoeditor/assets/5071467/6abe1372-0afb-4ee2-9645-7584a5e60664)
 
 ### Support
 -------
