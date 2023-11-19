@@ -24,9 +24,20 @@ This extension allows you to use [Monaco](https://github.com/microsoft/monaco-ed
 - Emmet a fast and efficient toolkit for HTML and CSS coding, providing shorthand abbreviations for quick code expansion. 
 - Tailwindccs Intellisense providing intelligent auto-completion, suggestions, and tooltips for Tailwind CSS classes 
 
+## Configuration
+Monaco Editor is enabled by default in all supported content.
+
+**System -> Content Management -> Monaco Editor Options**
+
+- Enable/disabled Monaco Editor [enabled]
+- Enable/disabled Tailwindcss Intellisense [enabled]
+- Configure Tailwindcss Prefix [disabled]
+    - Set Custom Tailwindcss Prefix ['tw-']
+
 ## Known issues:
 
-- The insert widget, insert image, and insert variable buttons not works
+- The insert widget, insert image, and insert variable buttons not works.
+
 - There is a problem with prototypejs that inserts the Array.prototype.include method and conflicts with Monaco. It should have been resolved, although it may not be the best solution, but it works!
 
 ## DEMO
