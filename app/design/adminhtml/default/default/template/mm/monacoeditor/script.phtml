@@ -2,14 +2,9 @@
 <script src="https://unpkg.com/emmet-monaco-es/dist/emmet-monaco.min.js"></script>
 
 <script type="text/javascript">
-    // find all elements by id that starts with toggle, extract after toogle example togglepage_content extract page_content
-    let _toggle = document.querySelectorAll('[id^="toggle"]');
-    // extract the id after toggle
-    let _toggleId = _toggle[0].id.split("toggle")[1];
-    // find the element with the id after toggle
-    let _textarea = document.getElementById(_toggleId);
-
-
+    
+    let _textareas = <?php echo $this->getTextAreas(); ?>;
+    
     require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }});
     window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
@@ -20,105 +15,136 @@
         importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
     `], { type: 'text/javascript' }));
 
-    require(["vs/editor/editor.main"], function () {
-        
-        // fix prototypejs bug
-        let oldArrayPrototype = Array.prototype.include;
-        delete Array.prototype.include;
-        monaco.editor.onDidCreateEditor((editor) => {
-            setTimeout(() => {
-                //Object.extend(Array.prototype, Enumerable);
-                Array.prototype.include = oldArrayPrototype;
-            }, 1000);
-        })
-        // end fix prototypejs bug
-
-        let theme = "vs";
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            theme = "vs-dark";
-        }
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-            if (e.matches) {
-                monaco.editor.setTheme("vs-dark");
-            } else {
-                monaco.editor.setTheme("vs");
-            }
-        })
-        
-        _textarea.insertAdjacentHTML("afterend", '<div id="editor"></div>');
-        document.getElementById("editor").style = _textarea.style.cssText;
-        _textarea.style.position = "absolute";
-        _textarea.style.visibility = "hidden";
-        let editor = document.getElementById('editor');
-        
-        const resizeObserver = new ResizeObserver(entries => {
-            window.editor.layout();
-        });
-        resizeObserver.observe(editor);
     
 
-        window.editor = monaco.editor.create(editor, {
-            value: _textarea.value,
-            language: 'html',
-            //lineNumbers: "off",
-            wordWrap: "on",
-            /*wordWrap: "bounded",
-            wordWrapColumn: 100,
-            wrappingIndent: "same", */
-            tabSize: 4,
-            fontSize: 12,
-            detectIndentation: false,
-            roundedSelection: false,
-            scrollBeyondLastLine: false,
-            quickSuggestions: false,
-            minimap: {
-                enabled: true,
-                autohide: true
-            },
-            theme: theme,
-            autoIndent: true,
-            formatOnPaste: true,
-            formatOnType: true,
 
-            automaticLayout: true,
-            colorDecorators: true,
-            wordBasedSuggestions: false,
-        });
 
-        // sync textarea with the editor
-        window.editor.getModel().onDidChangeContent((event) => {
-            //update textarea 
-            _textarea.value = window.editor.getValue();
-        });
+            
 
-        // handle ctrl+s to current form
-        // get current form parent from textarea
-        /* let _form = _textarea.closest("form");
-        window.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
-            _form.submit();
-        }); */       
+            require(["vs/editor/editor.main"], function () {
+                
+                // fix prototypejs bug
+                let oldArrayPrototype = Array.prototype.include;
+                delete Array.prototype.include;
+                monaco.editor.onDidCreateEditor((editor) => {
+                    setTimeout(() => {
+                        //Object.extend(Array.prototype, Enumerable);
+                        Array.prototype.include = oldArrayPrototype;
+                    }, 1000);
+                })
+                // end fix prototypejs bug
 
-        
-        
-        emmetMonaco.emmetHTML(monaco);
-        let tailwindcssMonaco = configureMonacoTailwindcss(monaco,
-            {
-                //languageSelector: 'html',
-                //tailwindConfig: './tailwindcss.config.js'
-            }
-        );
-        /* tailwindcssMonaco.setTailwindConfig({
-            prefix: 'tw-', //prefix for tailwind classes
-            corePlugins: {
-                preflight: false,
-            },
-            theme: {
-                extend: {},
-            },
-            plugins: [],
-        }); */
-        //console.log( tailwindcssMonaco.generateStylesFromContent('.c {backgroudn:red;}', _textarea.value) );        
+                let theme = "vs";
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    theme = "vs-dark";
+                }
+                window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+                    if (e.matches) {
+                        monaco.editor.setTheme("vs-dark");
+                    } else {
+                        monaco.editor.setTheme("vs");
+                    }
+                })
+                
+                
+            
+                _textareas.forEach(function(element) {
+                    let _textarea = document.getElementById(element.id);
+                    let _language = element.language;
+                    if (_textarea) {
 
-    });
+                        // window.editor is a global variable
+                        window.monacoEditors = window.monacoEditors || {};
+                        
+                        let editorId = "monaco-editor-" + element.id;
+                        _textarea.parentNode.style.position = "relative";
+                        _textarea.insertAdjacentHTML("beforebegin", '<div id="'+editorId+'"></div>');
+                        let editor = document.getElementById(editorId);
+
+                        editor.style = _textarea.style.cssText;
+                        _textarea.style.position = "absolute";
+                        _textarea.style.visibility = "hidden";
+                        
+
+                        let _toggle = document.getElementById("toggle" + element.id);
+                        if (_toggle) {
+                            <?php if ($this->isWysiwygEnabledByDefault()) : ?>
+                            _toggle.classList.add("active");
+                            editor.style.display = "none";
+                            <?php endif; ?>
+                            _toggle.addEventListener("click", function() {
+                                if (_toggle.classList.contains("active")) {
+                                    _toggle.classList.remove("active");
+                                    editor.style.display = "block";
+                                } else {
+                                    _toggle.classList.add("active");
+                                    editor.style.display = "none";
+                                }
+                            });
+                        }
+
+                        const resizeObserver = new ResizeObserver(entries => {
+                            window.monacoEditors[element.id].layout();
+                        });
+                        resizeObserver.observe(editor);
+                        window.monacoEditors[element.id] = monaco.editor.create(editor, {
+                            value: _textarea.value,
+                            language: _language || "html",
+                            wordWrap: "on",
+                            tabSize: 4,
+                            fontSize: 12,
+                            detectIndentation: false,
+                            roundedSelection: false,
+                            scrollBeyondLastLine: false,
+                            quickSuggestions: false,
+                            minimap: {
+                                enabled: true,
+                                autohide: true
+                            },
+                            theme: theme,
+                            autoIndent: true,
+                            formatOnPaste: true,
+                            formatOnType: true,
+
+                            automaticLayout: true,
+                            colorDecorators: true,
+                            wordBasedSuggestions: false,
+                        });
+
+                        // sync textarea with the editor
+                        window.monacoEditors[element.id].getModel().onDidChangeContent((event) => {
+                            //update textarea 
+                            _textarea.value = window.monacoEditors[element.id].getValue();
+                        });
+                    }
+                });
+
+                // handle ctrl+s to current form
+                // get current form parent from textarea
+                /* let _form = _textarea.closest("form");
+                window.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
+                    _form.submit();
+                }); */       
+
+                emmetMonaco.emmetHTML(monaco);
+                let tailwindcssMonaco = configureMonacoTailwindcss(monaco,
+                    {
+                        //languageSelector: 'html',
+                        //tailwindConfig: './tailwindcss.config.js'
+                    }
+                );
+                /* tailwindcssMonaco.setTailwindConfig({
+                    prefix: 'tw-', //prefix for tailwind classes
+                    corePlugins: {
+                        preflight: false,
+                    },
+                    theme: {
+                        extend: {},
+                    },
+                    plugins: [],
+                }); */
+                //console.log( tailwindcssMonaco.generateStylesFromContent('.c {backgroudn:red;}', _textarea.value) );        
+
+            });
 
 </script>
