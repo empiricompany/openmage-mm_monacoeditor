@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <layout>
    <adminhtml_cms_block_edit>
-       <update handle="mm_monacoeditor" />
+       <update handle="mm_monacoeditor" ifconfig="cms/mm_monacoeditor/enabled" />
     </adminhtml_cms_block_edit>
 
     <adminhtml_cms_page_edit>
-        <update handle="mm_monacoeditor" />
+        <update handle="mm_monacoeditor" ifconfig="cms/mm_monacoeditor/enabled" />
     </adminhtml_cms_page_edit>
 
     <!-- <adminhtml_catalog_product_edit>

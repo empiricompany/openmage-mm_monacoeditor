@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <cms>
+            <groups>
+                <mm_monacoeditor translate="label" module="mm_monacoeditor">
+                    <label>Monaco Editor Options</label>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Monaco Editor</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <tailwindcss translate="label">
+                            <label>Enable Tailwindcss Intellisense</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </tailwindcss>
+                        <tailwindcss_prefix translate="label">
+                            <label>Configure Tailwindcss Prefix</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>30</sort_order>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <tailwindcss>1</tailwindcss>
+                            </depends>
+                        </tailwindcss_prefix>
+                        <tailwindcss_prefix_value translate="label">
+                            <label>Tailwindcss Prefix</label>
+                            <comment>
+                            <![CDATA[
+                            Custom Prefix for Tailwindcss classes, example "tw-"
+                            ]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <tailwindcss_prefix>1</tailwindcss_prefix>
+                            </depends>
+                        </tailwindcss_prefix_value>
+                    </fields>
+                </mm_monacoeditor>
+            </groups>
+        </cms>
+    </sections>
+</config>

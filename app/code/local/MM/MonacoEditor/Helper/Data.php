@@ -1,4 +1,39 @@
 <?php
 class MM_MonacoEditor_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
+    const XML_PATH_CONFIG_TAILWINDCSS_ENABLED = 'cms/mm_monacoeditor/tailwindcss';
+    const XML_PATH_CONFIG_TAILWINDCSS_PREFIX_ENABLED = 'cms/mm_monacoeditor/tailwindcss_prefix';
+    const XML_PATH_CONFIG_TAILWINDCSS_PREFIX = 'cms/mm_monacoeditor/tailwindcss_prefix_value';
+
+    /**
+     * return true if tailwindcss is enabled
+     *
+     * @param int $storeId
+     * @return boolean
+     */
+    public function isTailwindcssEnabled($storeId = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_CONFIG_TAILWINDCSS_ENABLED, $storeId);
+    }
+
+    /**
+     * return true if tailwindcss prefix is enabled
+     *
+     * @param int $storeId
+     * @return boolean
+     */
+    public function isTailwindcssPrefixEnabled($storeId = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_CONFIG_TAILWINDCSS_PREFIX_ENABLED, $storeId);
+    }
+
+    /**
+     * return tailwindcss prefix value
+     * @return string
+     */    
+    public function getTailwindcssPrefix($storeId = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_CONFIG_TAILWINDCSS_PREFIX, $storeId);
+    }
 }

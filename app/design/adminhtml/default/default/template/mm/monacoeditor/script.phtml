@@ -122,27 +122,27 @@
                 // handle ctrl+s to current form
                 // get current form parent from textarea
                 /* let _form = _textarea.closest("form");
-                window.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
+                window.monacoEditors[element.id].addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
                     _form.submit();
                 }); */       
 
                 emmetMonaco.emmetHTML(monaco);
+                console.log('<?php echo Mage::helper('mm_monacoeditor')->isTailwindcssEnabled() ? 'yes' : 'no'; ?>');
+                <?php if (Mage::helper('mm_monacoeditor')->isTailwindcssEnabled()) : ?>
                 let tailwindcssMonaco = configureMonacoTailwindcss(monaco,
                     {
                         //languageSelector: 'html',
                         //tailwindConfig: './tailwindcss.config.js'
                     }
                 );
-                /* tailwindcssMonaco.setTailwindConfig({
-                    prefix: 'tw-', //prefix for tailwind classes
-                    corePlugins: {
-                        preflight: false,
-                    },
-                    theme: {
-                        extend: {},
-                    },
-                    plugins: [],
-                }); */
+
+                <?php if (Mage::helper('mm_monacoeditor')->isTailwindcssPrefixEnabled() AND Mage::helper('mm_monacoeditor')->getTailwindcssPrefix()) : ?>
+                tailwindcssMonaco.setTailwindConfig({
+                    prefix: '<?php echo Mage::helper('mm_monacoeditor')->getTailwindcssPrefix(); ?>'
+                });
+                <?php endif; ?>
+                
+                <?php endif; ?>
                 //console.log( tailwindcssMonaco.generateStylesFromContent('.c {backgroudn:red;}', _textarea.value) );        
 
             });

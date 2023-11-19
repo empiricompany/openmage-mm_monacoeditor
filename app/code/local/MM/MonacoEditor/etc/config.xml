@@ -21,10 +21,6 @@
                 <class>MM_MonacoEditor_Model</class>
             </mm_monacoeditor>
         </models>
-
-        <events>
-            
-        </events>
     </global>
     <adminhtml>
         <layout>
@@ -41,7 +37,9 @@
     <default>
         <cms>
             <mm_monacoeditor>
-        
+                <enabled>1</enabled>
+                <tailwindcss>1</tailwindcss>
+                <tailwindcss_prefix_value>tw-</tailwindcss_prefix_value>
             </mm_monacoeditor>
         </cms>
     </default>
