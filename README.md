@@ -33,3 +33,15 @@ This extension allows you to use [Monaco](https://github.com/microsoft/monaco-ed
 
 ![demo-monacoeditor](https://github.com/empiricompany/openmage-mm_monacoeditor/assets/5071467/05398366-fe69-498c-99f3-6140571bc395)
 
+### Support
+-------
+If you have any issues with this extension, please open an issue on GitHub.
+
+### Contribution
+------------
+Any contributions are highly appreciated. The best way to contribute code is to open a
+[pull request on GitHub](https://help.github.com/articles/using-pull-requests).
+
+### Licence
+-------
+[OSL - Open Software Licence 3.0](http://opensource.org/licenses/osl-3.0.php)
