@@ -31,7 +31,15 @@
             </updates>
         </layout>
         <events>
-            
+            <cms_wysiwyg_config_prepare>
+                <observers>
+                    <mm_moancoeditor>
+                        <type>singleton</type>
+                        <class>MM_MonacoEditor_Model_Observer</class>
+                        <method>disableWysywygEditor</method>
+                    </mm_moancoeditor>
+                </observers>
+            </cms_wysiwyg_config_prepare>
         </events>
     </adminhtml>
     <default>
