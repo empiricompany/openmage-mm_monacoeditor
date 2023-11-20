@@ -36,14 +36,7 @@ Monaco Editor is enabled by default in all supported content.
 
 ## Known issues:
 
-- The insert widget, insert image, and insert variable buttons not works.
-
-You have to manually type:
- ```html
-{{widget type="catalog/product_widget_new" display_type="all_products" products_count="10" template="catalog/product/widget/new/content/new_grid.phtml"}}
-<img src="{{media url="wysiwyg/404-banner-3.jpg"}}" alt="" />
-{{config path="web/secure/base_url"}}
- ```
+- The TinyMCE content is not synchronized back on Monaco.
 
 - There is a problem with prototypejs that inserts the Array.prototype.include method and conflicts with Monaco. It should have been resolved, although it may not be the best solution, but it works!
 
