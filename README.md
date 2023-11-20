@@ -33,6 +33,8 @@ Monaco Editor is enabled by default in all supported content.
 - Enable/disabled Tailwindcss Intellisense [enabled]
 - Configure Tailwindcss Prefix [disabled]
     - Set Custom Tailwindcss Prefix ['tw-']
+- Disable WYSYWYG Editor for specific Static Blocks and Pages
+
 
 ## Known issues:
 
