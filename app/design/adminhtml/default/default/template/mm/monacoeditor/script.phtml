@@ -15,12 +15,6 @@
         importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
     `], { type: 'text/javascript' }));
 
-    
-
-
-
-            
-
             require(["vs/editor/editor.main"], function () {
                 
                 // fix prototypejs bug
@@ -63,6 +57,7 @@
 
                         editor.style = _textarea.style.cssText;
                         _textarea.style.position = "absolute";
+                        _textarea.style.top = "0";
                         _textarea.style.visibility = "hidden";
                         
 
@@ -115,7 +110,18 @@
                         window.monacoEditors[element.id].getModel().onDidChangeContent((event) => {
                             //update textarea 
                             _textarea.value = window.monacoEditors[element.id].getValue();
+                           
                         });
+                        window.monacoEditors[element.id].onDidChangeCursorPosition(e => {
+                            let indexPos = window.monacoEditors[element.id].getModel().getOffsetAt(window.monacoEditors[element.id].getPosition());
+                            _textarea.setSelectionRange(indexPos, indexPos);
+                        });
+
+                        setInterval(() => {
+                            if(window.monacoEditors[element.id].getModel().getValue() != _textarea.value) {
+                                window.monacoEditors[element.id].getModel().setValue(_textarea.value);
+                            }
+                        }, 500);
                     }
                 });
 
@@ -127,7 +133,6 @@
                 }); */       
 
                 emmetMonaco.emmetHTML(monaco);
-                console.log('<?php echo Mage::helper('mm_monacoeditor')->isTailwindcssEnabled() ? 'yes' : 'no'; ?>');
                 <?php if (Mage::helper('mm_monacoeditor')->isTailwindcssEnabled()) : ?>
                 let tailwindcssMonaco = configureMonacoTailwindcss(monaco,
                     {
