@@ -10,6 +10,8 @@
 
 This extension allows you to use [Monaco](https://github.com/microsoft/monaco-editor)  for editing CMS content and Design Update XML instead of textareas while maintaining indentation, as well as benefiting from all the useful features.
 
+Additionally, you can disable the TinyMCE WYSIWYG editor for specific static blocks and pages. This option has been added because TinyMCE removes code that does not conform to the HTML5 schema, such as Alpine.js.
+
 > This is a side project of [CMSContentFileMode](https://github.com/magemega/openmage-mm_cmscontentfilemode) that integrates the Tailwind CSS compiler for CMS Content in OpenMage. Check it out!
 
 ## Monaco Features
@@ -45,7 +47,8 @@ Monaco Editor is enabled by default in all supported content.
 ## DEMO
 
 ![demo-monacoeditor](https://github.com/empiricompany/openmage-mm_monacoeditor/assets/5071467/05398366-fe69-498c-99f3-6140571bc395)
-![configs](https://github.com/empiricompany/openmage-mm_monacoeditor/assets/5071467/6abe1372-0afb-4ee2-9645-7584a5e60664)
+![configs](https://github.com/empiricompany/openmage-mm_monacoeditor/assets/5071467/f9ddde27-3fe9-4f10-889c-13e96c7fb5aa)
+
 
 ### Support
 -------
