@@ -3,14 +3,13 @@ class MM_MonacoEditor_Block_Init extends Mage_Core_Block_Template
 {
     /**
      * return json encoded array of textareas id and language
-     * @return string
      */
-    public function getTextAreas()
+    public function getTextAreas(): string
     {
         $textareas = [];
         $controller = Mage::app()->getRequest()->getControllerName();
 
-        switch($controller){
+        switch ($controller) {
             case 'cms_page':
                 $textareas = [
                     [
@@ -36,15 +35,11 @@ class MM_MonacoEditor_Block_Init extends Mage_Core_Block_Template
                 ];
                 break;
         }
-        return Zend_Json::encode($textareas,false,array('enableJsonExprFinder'=>true));
+
+        return Zend_Json::encode($textareas,false, ['enableJsonExprFinder' => true]);
     }
 
-    /**
-     * return true if wysiwyg is enabled by default
-     *
-     * @return boolean
-     */
-    public function isWysiwygEnabledByDefault()
+    public function isWysiwygEnabledByDefault(): bool
     {
         return Mage::getStoreConfig('cms/wysiwyg/enabled') == 'enabled';
     }

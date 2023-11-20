@@ -1,0 +1,19 @@
+{
+  "name": "empiricompany/monaco-editor-magento1",
+  "type": "magento-module",
+  "require": {
+    "php": "^7.4||^8.0",
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+  "config": {
+    "allow-plugins": {
+      "magento-hackathon/magento-composer-installer": true
+    }
+  },
+  "extra": {
+      "foxy": true
+  }
+}

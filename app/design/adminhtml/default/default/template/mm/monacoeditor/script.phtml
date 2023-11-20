@@ -1,155 +1,146 @@
-<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
-<script src="https://unpkg.com/emmet-monaco-es/dist/emmet-monaco.min.js"></script>
+<?php /** @var \MM_MonacoEditor_Block_Init $this */ ?>
 
 <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    let _textareas = <?php echo $this->getTextAreas() ?>;
     
-    let _textareas = <?php echo $this->getTextAreas(); ?>;
-    
-    require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }});
+    require.config({ paths: { 'vs': '<?php echo $this->getJsUrl('monacoeditor/dist/vs') ?>' }});
     window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
     let proxy = URL.createObjectURL(new Blob([`
         self.MonacoEnvironment = {
-            baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+            baseUrl: '<?php echo $this->getJsUrl('monacoeditor/dist') ?>'
         };
-        importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+        importScripts('<?php echo $this->getJsUrl('monacoeditor/dist/vs/base/worker/workerMain.js') ?>');
     `], { type: 'text/javascript' }));
 
-            require(["vs/editor/editor.main"], function () {
-                
-                // fix prototypejs bug
-                let oldArrayPrototype = Array.prototype.include;
-                delete Array.prototype.include;
-                monaco.editor.onDidCreateEditor((editor) => {
-                    setTimeout(() => {
-                        //Object.extend(Array.prototype, Enumerable);
-                        Array.prototype.include = oldArrayPrototype;
-                    }, 1000);
-                })
-                // end fix prototypejs bug
+    require(["vs/editor/editor.main"], function () {
+        // fix prototypejs bug
+        let oldArrayPrototype = Array.prototype.include;
+        delete Array.prototype.include;
+        monaco.editor.onDidCreateEditor((editor) => {
+            setTimeout(() => {
+                //Object.extend(Array.prototype, Enumerable);
+                Array.prototype.include = oldArrayPrototype;
+            }, 1000);
+        })
+        // end fix prototypejs bug
 
-                let theme = "vs";
-                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                    theme = "vs-dark";
-                }
-                window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-                    if (e.matches) {
-                        monaco.editor.setTheme("vs-dark");
-                    } else {
-                        monaco.editor.setTheme("vs");
-                    }
-                })
-                
-                
-            
-                _textareas.forEach(function(element) {
-                    let _textarea = document.getElementById(element.id);
-                    let _language = element.language;
-                    if (_textarea) {
+        let theme = "vs";
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            theme = "vs-dark";
+        }
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+            if (e.matches) {
+                monaco.editor.setTheme("vs-dark");
+            } else {
+                monaco.editor.setTheme("vs");
+            }
+        })
 
-                        // window.editor is a global variable
-                        window.monacoEditors = window.monacoEditors || {};
-                        
-                        let editorId = "monaco-editor-" + element.id;
-                        _textarea.parentNode.style.position = "relative";
-                        _textarea.insertAdjacentHTML("beforebegin", '<div id="'+editorId+'"></div>');
-                        let editor = document.getElementById(editorId);
+        _textareas.forEach(function(element) {
+            let _textarea = document.getElementById(element.id);
+            let _language = element.language;
+            if (_textarea) {
+                // window.editor is a global variable
+                window.monacoEditors = window.monacoEditors || {};
 
-                        editor.style = _textarea.style.cssText;
-                        _textarea.style.position = "absolute";
-                        _textarea.style.top = "0";
-                        _textarea.style.visibility = "hidden";
-                        
+                let editorId = "monaco-editor-" + element.id;
+                _textarea.parentNode.style.position = "relative";
+                _textarea.insertAdjacentHTML("beforebegin", '<div id="'+editorId+'"></div>');
+                let editor = document.getElementById(editorId);
 
-                        let _toggle = document.getElementById("toggle" + element.id);
-                        if (_toggle) {
-                            <?php if ($this->isWysiwygEnabledByDefault()) : ?>
+                editor.style = _textarea.style.cssText;
+                _textarea.style.position = "absolute";
+                _textarea.style.top = "0";
+                _textarea.style.visibility = "hidden";
+
+                let _toggle = document.getElementById("toggle" + element.id);
+                if (_toggle) {
+                    <?php if ($this->isWysiwygEnabledByDefault()): ?>
+                    _toggle.classList.add("active");
+                    editor.style.display = "none";
+                    <?php endif; ?>
+                    _toggle.addEventListener("click", function() {
+                        if (_toggle.classList.contains("active")) {
+                            _toggle.classList.remove("active");
+                            editor.style.display = "block";
+                        } else {
                             _toggle.classList.add("active");
                             editor.style.display = "none";
-                            <?php endif; ?>
-                            _toggle.addEventListener("click", function() {
-                                if (_toggle.classList.contains("active")) {
-                                    _toggle.classList.remove("active");
-                                    editor.style.display = "block";
-                                } else {
-                                    _toggle.classList.add("active");
-                                    editor.style.display = "none";
-                                }
-                            });
                         }
+                    });
+                }
 
-                        const resizeObserver = new ResizeObserver(entries => {
-                            window.monacoEditors[element.id].layout();
-                        });
-                        resizeObserver.observe(editor);
-                        window.monacoEditors[element.id] = monaco.editor.create(editor, {
-                            value: _textarea.value,
-                            language: _language || "html",
-                            wordWrap: "on",
-                            tabSize: 4,
-                            fontSize: 12,
-                            detectIndentation: false,
-                            roundedSelection: false,
-                            scrollBeyondLastLine: false,
-                            quickSuggestions: true,
-                            minimap: {
-                                enabled: true,
-                                autohide: true
-                            },
-                            theme: theme,
-                            autoIndent: true,
-                            formatOnPaste: true,
-                            formatOnType: true,
+                const resizeObserver = new ResizeObserver(entries => {
+                    window.monacoEditors[element.id].layout();
+                });
+                resizeObserver.observe(editor);
+                window.monacoEditors[element.id] = monaco.editor.create(editor, {
+                    value: _textarea.value,
+                    language: _language || "html",
+                    wordWrap: "on",
+                    tabSize: 4,
+                    fontSize: 12,
+                    detectIndentation: false,
+                    roundedSelection: false,
+                    scrollBeyondLastLine: false,
+                    quickSuggestions: true,
+                    minimap: {
+                        enabled: true,
+                        autohide: true
+                    },
+                    theme: theme,
+                    autoIndent: true,
+                    formatOnPaste: true,
+                    formatOnType: true,
 
-                            automaticLayout: true,
-                            colorDecorators: true,
-                            wordBasedSuggestions: false,
-                        });
-
-                        // sync textarea with the editor
-                        window.monacoEditors[element.id].getModel().onDidChangeContent((event) => {
-                            //update textarea 
-                            _textarea.value = window.monacoEditors[element.id].getValue();
-                           
-                        });
-                        window.monacoEditors[element.id].onDidChangeCursorPosition(e => {
-                            let indexPos = window.monacoEditors[element.id].getModel().getOffsetAt(window.monacoEditors[element.id].getPosition());
-                            _textarea.setSelectionRange(indexPos, indexPos);
-                        });
-
-                        setInterval(() => {
-                            if(window.monacoEditors[element.id].getModel().getValue() != _textarea.value) {
-                                window.monacoEditors[element.id].getModel().setValue(_textarea.value);
-                            }
-                        }, 500);
-                    }
+                    automaticLayout: true,
+                    colorDecorators: true,
+                    wordBasedSuggestions: false,
                 });
 
-                // handle ctrl+s to current form
-                // get current form parent from textarea
-                /* let _form = _textarea.closest("form");
-                window.monacoEditors[element.id].addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
-                    _form.submit();
-                }); */       
-
-                emmetMonaco.emmetHTML(monaco);
-                <?php if (Mage::helper('mm_monacoeditor')->isTailwindcssEnabled()) : ?>
-                let tailwindcssMonaco = configureMonacoTailwindcss(monaco,
-                    {
-                        //languageSelector: 'html',
-                        //tailwindConfig: './tailwindcss.config.js'
-                    }
-                );
-
-                <?php if (Mage::helper('mm_monacoeditor')->isTailwindcssPrefixEnabled() AND Mage::helper('mm_monacoeditor')->getTailwindcssPrefix()) : ?>
-                tailwindcssMonaco.setTailwindConfig({
-                    prefix: '<?php echo Mage::helper('mm_monacoeditor')->getTailwindcssPrefix(); ?>'
+                // sync textarea with the editor
+                window.monacoEditors[element.id].getModel().onDidChangeContent((event) => {
+                    //update textarea
+                    _textarea.value = window.monacoEditors[element.id].getValue();
                 });
-                <?php endif; ?>
-                
-                <?php endif; ?>
-                //console.log( tailwindcssMonaco.generateStylesFromContent('.c {backgroudn:red;}', _textarea.value) );        
+                window.monacoEditors[element.id].onDidChangeCursorPosition(e => {
+                    let indexPos = window.monacoEditors[element.id].getModel().getOffsetAt(window.monacoEditors[element.id].getPosition());
+                    _textarea.setSelectionRange(indexPos, indexPos);
+                });
 
-            });
+                setInterval(() => {
+                    if (window.monacoEditors[element.id].getModel().getValue() !== _textarea.value) {
+                        window.monacoEditors[element.id].getModel().setValue(_textarea.value);
+                    }
+                }, 500);
+            }
+        });
 
+        // handle ctrl+s to current form
+        // get current form parent from textarea
+        /* let _form = _textarea.closest("form");
+        window.monacoEditors[element.id].addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
+            _form.submit();
+        }); */
+
+        emmetMonaco.emmetHTML(monaco);
+        <?php if ($this->helper('mm_monacoeditor')->isTailwindcssEnabled()): ?>
+        let tailwindcssMonaco = configureMonacoTailwindcss(monaco,
+            {
+                //languageSelector: 'html',
+                //tailwindConfig: './tailwindcss.config.js'
+            }
+        );
+
+        <?php if ($this->helper('mm_monacoeditor')->isTailwindcssPrefixEnabled() && $this->helper('mm_monacoeditor')->getTailwindcssPrefix()): ?>
+        tailwindcssMonaco.setTailwindConfig({
+            prefix: '<?php echo $this->helper('mm_monacoeditor')->getTailwindcssPrefix(); ?>'
+        });
+        <?php endif; ?>
+
+        <?php endif; ?>
+    });
+});
 </script>

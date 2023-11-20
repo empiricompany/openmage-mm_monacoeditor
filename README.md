@@ -1,3 +1,5 @@
+# Monaco HTML Editor for Magento 1 / OpenMage
+
 ## Requirements
 - [OpenMage](https://github.com/OpenMage/magento-lts) / Magento 1.9.x
 - PHP 7.4 / 8.x

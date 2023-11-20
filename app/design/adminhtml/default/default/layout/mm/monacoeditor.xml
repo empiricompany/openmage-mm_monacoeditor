@@ -30,9 +30,20 @@
 
     <mm_monacoeditor>
         <reference name="head">
-            <action method="addJs">
+             <action method="addCss">
+                 <stylesheet>mm_monacoeditor.css</stylesheet>
+             </action>
+            <action method="addJs" ifconfig="cms/mm_monacoeditor/tailwindcss">
                 <script>monacoeditor/monaco-tailwindcss.min.js</script>
                 <type>type="module"</type>
+            </action>
+            <action method="addJs">
+                <script>monacoeditor/dist/vs/loader.js</script>
+                <params>defer="defer"</params>
+            </action>
+            <action method="addJs">
+                <script>monacoeditor/dist/emmet-monaco.min.js</script>
+                <params>defer="defer"</params>
             </action>
         </reference>
         <reference name="content" after="-">
