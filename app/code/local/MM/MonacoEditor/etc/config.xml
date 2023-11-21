@@ -5,6 +5,7 @@
             <version>1.0.0</version>
         </MM_MonacoEditor>
     </modules>
+
     <global>
         <blocks>
             <mm_monacoeditor>
@@ -22,6 +23,7 @@
             </mm_monacoeditor>
         </models>
     </global>
+
     <adminhtml>
         <layout>
             <updates>
@@ -42,10 +44,12 @@
             </cms_wysiwyg_config_prepare>
         </events>
     </adminhtml>
+
     <default>
         <cms>
             <mm_monacoeditor>
                 <enabled>1</enabled>
+                <editorjs_url_prefix>https://unpkg.com/monaco-editor@latest/min/</editorjs_url_prefix>
                 <tailwindcss>1</tailwindcss>
                 <tailwindcss_prefix_value>tw-</tailwindcss_prefix_value>
             </mm_monacoeditor>

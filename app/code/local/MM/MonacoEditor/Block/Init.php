@@ -36,11 +36,16 @@ class MM_MonacoEditor_Block_Init extends Mage_Core_Block_Template
                 break;
         }
 
-        return Zend_Json::encode($textareas,false, ['enableJsonExprFinder' => true]);
+        return Zend_Json::encode($textareas, false, ['enableJsonExprFinder' => true]);
     }
 
     public function isWysiwygEnabledByDefault(): bool
     {
-        return Mage::getStoreConfig('cms/wysiwyg/enabled') == 'enabled';
+        return Mage::getStoreConfig('cms/wysiwyg/enabled') === 'enabled';
+    }
+
+    public function getEditorJsUrl($fileName = ''): string
+    {
+        return Mage::getStoreConfig('cms/mm_monacoeditor/editorjs_url_prefix') . $fileName;
     }
 }

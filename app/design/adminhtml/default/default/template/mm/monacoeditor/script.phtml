@@ -4,14 +4,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     let _textareas = <?php echo $this->getTextAreas() ?>;
     
-    require.config({ paths: { 'vs': '<?php echo $this->getJsUrl('monacoeditor/dist/vs') ?>' }});
+    require.config({ paths: { 'vs': '<?php echo $this->getEditorJsUrl('vs') ?>' }});
     window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
     let proxy = URL.createObjectURL(new Blob([`
         self.MonacoEnvironment = {
-            baseUrl: '<?php echo $this->getJsUrl('monacoeditor/dist') ?>'
+            baseUrl: '<?php echo $this->getEditorJsUrl('') ?>'
         };
-        importScripts('<?php echo $this->getJsUrl('monacoeditor/dist/vs/base/worker/workerMain.js') ?>');
+        importScripts('<?php echo $this->getEditorJsUrl('vs/base/worker/workerMain.js') ?>');
     `], { type: 'text/javascript' }));
 
     require(["vs/editor/editor.main"], function () {
@@ -26,10 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         // end fix prototypejs bug
 
-        let theme = "vs";
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            theme = "vs-dark";
-        }
+        let theme = (window.matchMedia("(prefers-color-scheme: dark)").matches) ? "vs-dark" : "vs";
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
             if (e.matches) {
                 monaco.editor.setTheme("vs-dark");
@@ -139,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
             prefix: '<?php echo $this->helper('mm_monacoeditor')->getTailwindcssPrefix(); ?>'
         });
         <?php endif; ?>
-
         <?php endif; ?>
     });
 });
