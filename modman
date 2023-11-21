@@ -1,6 +1,5 @@
 app/code/local/MM/MonacoEditor     app/code/local/MM/MonacoEditor
-js/monacoeditor/monaco-tailwindcss.min.js    js/monacoeditor/monaco-tailwindcss.min.js
-js/monacoeditor/tailwindcss.worker.js    js/monacoeditor/tailwindcss.worker.js
+js/*    js/
 app/design/adminhtml/default/default/layout/mm/monacoeditor.xml    app/design/adminhtml/default/default/layout/mm/monacoeditor.xml
 app/design/adminhtml/default/default/template/mm/monacoeditor    app/design/adminhtml/default/default/template/mm/monacoeditor
 skin/adminhtml/default/default/mm_monacoeditor.css  skin/adminhtml/default/default/mm_monacoeditor.css
