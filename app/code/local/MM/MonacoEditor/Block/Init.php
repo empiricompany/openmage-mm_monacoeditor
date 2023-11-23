@@ -44,7 +44,7 @@ class MM_MonacoEditor_Block_Init extends Mage_Core_Block_Template
         return Mage::getStoreConfig('cms/wysiwyg/enabled') === 'enabled';
     }
 
-    public function getEditorJsUrl($fileName = ''): string
+    public function getEditorJsUrl(string $fileName = ''): string
     {
         return Mage::getStoreConfig('cms/mm_monacoeditor/editorjs_url_prefix') . $fileName;
     }

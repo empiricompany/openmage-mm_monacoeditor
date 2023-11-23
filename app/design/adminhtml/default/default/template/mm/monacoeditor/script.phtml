@@ -1,9 +1,8 @@
 <?php /** @var \MM_MonacoEditor_Block_Init $this */ ?>
 
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
     let _textareas = <?php echo $this->getTextAreas() ?>;
-    
+
     require.config({ paths: { 'vs': '<?php echo $this->getEditorJsUrl('vs') ?>' }});
     window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
@@ -138,5 +137,4 @@ document.addEventListener('DOMContentLoaded', function() {
         <?php endif; ?>
         <?php endif; ?>
     });
-});
 </script>

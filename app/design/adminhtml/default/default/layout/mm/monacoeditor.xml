@@ -39,12 +39,12 @@
             </action>
             <block type="core/text" name="mm_monacoeditor_monaco_editor_external_js">
                 <action method="setText">
-                    <text><![CDATA[<script type="text/javascript" src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js" defer></script>]]></text>
+                    <text><![CDATA[<script type="text/javascript" src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>]]></text>
                 </action>
             </block>
             <block type="core/text" name="mm_monacoeditor_emmet_monaco_external_js">
                 <action method="setText">
-                    <text><![CDATA[<script type="text/javascript" src="https://unpkg.com/emmet-monaco-es/dist/emmet-monaco.min.js" defer></script>]]></text>
+                    <text><![CDATA[<script type="text/javascript" src="https://unpkg.com/emmet-monaco-es/dist/emmet-monaco.min.js"></script>]]></text>
                 </action>
             </block>
         </reference>
