@@ -1,38 +1,27 @@
 <?php
-class MM_MonacoEditor_Model_Observer {
-
-    /**
-     * Disable WYSIWYG editor for pages and static blocks
-     *
-     * @param Varien_Event_Observer $observer
-     * @return void
-     */
-    public function disableWysywygEditor(Varien_Event_Observer $observer)
-	{
-        if (!$this->_checkEntityisDisabled()) {
+final class MM_MonacoEditor_Model_Observer
+{
+    public function disableWysywygEditor(Varien_Event_Observer $observer): void
+    {
+        if (! $this->_shouldEntityBeDisabled()) {
             return;
         }
-	    $config = $observer->getConfig();
+
+        $config = $observer->getConfig();
         $config->setEnabled(false);
     }
 
-    /**
-     * Disable WYSIWYG editor for pages and static blocks
-     *
-     * @return boolean
-     */
-    private function _checkEntityisDisabled()
+    private function _shouldEntityBeDisabled(): bool
     {
         $controller = Mage::app()->getRequest()->getControllerName();
 
-        switch($controller){
+        switch ($controller) {
             case 'cms_page':
                 return in_array(Mage::app()->getRequest()->getParam('page_id'), Mage::helper('mm_monacoeditor')->getDisabledWysiwygPages());
-                break;
             case 'cms_block':
                 return in_array(Mage::app()->getRequest()->getParam('block_id'), Mage::helper('mm_monacoeditor')->getDisabledWysiwygBlocks());
-                break;
         }
+
         return false;
     }
 }
