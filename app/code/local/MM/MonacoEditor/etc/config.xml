@@ -2,7 +2,7 @@
 <config>
     <modules>
         <MM_MonacoEditor>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </MM_MonacoEditor>
     </modules>
     <global>
